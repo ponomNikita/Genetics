@@ -22,8 +22,9 @@ namespace Genetics.Core.Optimizer
                 int solution;
                 do
                 {
-                    solution = random.Next() * this.GetSize();
+                    solution = random.Next() % this.GetSize();
                 } while (indexes.Any(ind => ind == solution));
+                indexes.Add(solution);
             }
 
             List<ISolution> solutions = new List<ISolution>();
