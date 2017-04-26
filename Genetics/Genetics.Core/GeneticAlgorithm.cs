@@ -10,7 +10,32 @@ namespace Genetics.Core
     {
         public virtual ISolution Solve()
         {
-            return null;
+            var population = GeneratePopulation();
+
+            WorkCircle(population);
+
+            return population.GetBest();
+        }
+
+        protected abstract bool IsSolved();
+
+        protected abstract Population GeneratePopulation();
+
+        protected virtual void WorkCircle(Population population)
+        {
+            while (!IsSolved())
+            {
+                var subPopulation = population.GetSubPopulation(2);
+
+                List<ISolution> mutants = new List<ISolution>();
+                subPopulation.ForEach(s => { mutants.Add(s.Mutate()); });
+
+                subPopulation.Add(mutants);
+
+                population.DeleteTheWorst();
+
+                population.Add(subPopulation.GetBest());
+            }
         }
     }
 }
