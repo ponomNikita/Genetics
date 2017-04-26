@@ -5,7 +5,7 @@ namespace Genetics.Core
 {
     public abstract class Population
     {
-        private readonly List<ISolution> _solutions;
+        protected readonly List<ISolution> _solutions;
 
         public Population(List<ISolution> solutions)
         {
@@ -27,12 +27,12 @@ namespace Genetics.Core
 
         public virtual ISolution GetBest()
         {
-            return GetSolution(new GetBestSolutionStrategy());
+            return GetSolution(true);
         }
 
         public virtual ISolution GetTheWorst()
         {
-            return GetSolution(new GetWorstSolutionStrategy());
+            return GetSolution(false);
         }
 
         public abstract Population GetSubPopulation(int size);
@@ -47,13 +47,18 @@ namespace Genetics.Core
             _solutions.Remove(GetTheWorst());
         }
 
-        private ISolution GetSolution(ICompareSolutionStrategy strategy)
+        public virtual int GetSize()
+        {
+            return _solutions.Count;
+        }
+
+        private ISolution GetSolution(bool isBest = true)
         {
             ISolution res = _solutions[0];
 
             this.ForEach(s =>
             {
-                res = s.Get(s, res, strategy);
+                res = s.Get(s, res, isBest);
             });
 
             return res;

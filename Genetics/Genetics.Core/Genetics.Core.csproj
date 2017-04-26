@@ -41,9 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneticAlgorithm.cs" />
-    <Compile Include="GetSolutionStrategies\GetBestSolutionStrategy.cs" />
-    <Compile Include="GetSolutionStrategies\GetWorstSolutionStrategy.cs" />
-    <Compile Include="GetSolutionStrategies\ICompareSolutionStrategy.cs" />
+    <Compile Include="Optimizer\OptimizedSolution.cs" />
+    <Compile Include="Optimizer\OptimizedSolutionsPopulation.cs" />
     <Compile Include="Optimizer\Optimizer.cs" />
     <Compile Include="Population.cs" />
     <Compile Include="ISolution.cs" />
